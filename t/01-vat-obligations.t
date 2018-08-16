@@ -1,13 +1,11 @@
 #!perl -T
 use strict;
 use warnings;
-use Data::Dumper;
 use Test::Exception;
 use Test::More;
-use Time::Piece;
 use WebService::HMRC::VAT;
 
-plan tests => 27;
+plan tests => 19;
 
 my($ws, $r, $auth);
 
@@ -130,11 +128,11 @@ SKIP: {
     );
 
     # Request VAT returns over a period of the current year.
-    # Using the HMRC test api, four return obligations will be
-    # returned, the first being 'Fulfilled', the others 'Open'.
-    my $year = gmtime->year;
-    my $from = "$year-01-01";
-    my $to   = "$year-12-31";
+    # The sandbox api takes no notice of the specified date values
+    # except that valid dates must be provided. Neither does it
+    # respect the open/fulfilled filter parameter.
+    my $from = "2017-01-01";
+    my $to   = "2017-12-31";
 
     isa_ok(
         $r = $ws->obligations({
@@ -146,43 +144,5 @@ SKIP: {
     );
 
     ok($r->is_success, 'successful response calling obligations from HMRC without status filter');
-    is(scalar @{$r->data->{obligations}}, 4, '4 VAT return obligations returned without filter');
-
-use Data::Dumper;
-warn Dumper $r->data;
-
-
-  SKIP: {
-    skip('obligation endpoint status filtering broken on HMRC side', 8);
-
-    # Filter 'Open' Obligations
-    isa_ok(
-        $r = $ws->obligations({
-            from => $from,
-            to => $to,
-            status => 'O'
-        }),
-        'WebService::HMRC::Response',
-        'called obligations from HMRC with "open" status filter'
-    );
-    ok($r->is_success, 'successful response calling obligations from HMRC with "open" status filter');
-    is(scalar @{$r->data->{obligations}}, 3, '3 VAT return obligations returned with "open" status filter');
-    is($r->data->{obligations}->[0]->{status}, 'O', 'first filtered result is "open"');
-
-    # Filter 'Fulfilled' Obligations
-    isa_ok(
-        $r = $ws->obligations({
-            from => $from,
-            to => $to,
-            status => 'F'
-        }),
-        'WebService::HMRC::Response',
-        'called obligations from HMRC with "fulfilled" status filter'
-    );
-    ok($r->is_success, 'successful response calling obligations from HMRC with "fulfilled" status filter');
-    is(scalar @{$r->data->{obligations}}, 1, '1 VAT return obligation returned with "fulfilled" status filter');
-    is($r->data->{obligations}->[0]->{status}, 'O', 'first filtered result is "fulfilled"');
-  }
-
+    ok(scalar @{$r->data->{obligations}} > 0, 'At lease one  VAT return obligations returned without filter');
 }
-
