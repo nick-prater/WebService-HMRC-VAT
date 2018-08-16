@@ -102,7 +102,7 @@ dies_ok {
 # Make real call to HMRC test api with valid access_token
 SKIP: {
 
-    my $skip_count = 13;
+    my $skip_count = 5;
 
     $ENV{HMRC_ACCESS_TOKEN} or skip (
         'Skipping tests on HMRC test api as environment variable HMRC_ACCESS_TOKEN is not set',
