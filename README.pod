@@ -563,7 +563,7 @@ test user's VAT registration number must also be provided.
 
 The credentials are specified as environment variables when running the tests:
 
-    HMRC_ACCESS_TOKEN=[MY-SERVER-TOKEN] \
+    HMRC_ACCESS_TOKEN=[MY-ACCESS-TOKEN] \
     HMRC_VRN=[USER-VAT-REGISTRATION-NUMBER] \
     make test TEST_VERBOSE=1
 
