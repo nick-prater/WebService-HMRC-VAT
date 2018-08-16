@@ -773,7 +773,7 @@ You can find documentation for this module with the perldoc command.
     perldoc WebService::HMRC::VAT
 
 The C<README.pod> file supplied with this distribution is generated from the
-L<WebService::HMRC::HelloWorld> module's pod by running the following
+L<WebService::HMRC::VAT> module's pod by running the following
 command from the distribution root:
 
     perldoc -u lib/WebService/HMRC/VAT.pm > README.pod
