@@ -117,7 +117,7 @@ Inherits from L<WebService::HMRC::Request>.
 
 Retrieve a set of VAT filing obligations for the specified date range. Returns
 a WebService::HMRC::Response object reference. Requires permission for the
-C<read-vat> service scope.
+C<read:vat> service scope.
 
 =head3 Parameters:
 
@@ -225,7 +225,7 @@ sub obligations {
 =head2 liabilities({ from => 'YYYY-MM-DD', to => 'YYYY-MM-DD', [test_mode => $test_mode] })
 
 Retrieve a set of VAT payment liabilities. Returns a WebService::HMRC::Response
-object reference. Requires permission for the C<read-vat> service scope.
+object reference. Requires permission for the C<read:vat> service scope.
 
 =head3 Parameters:
 
@@ -330,7 +330,7 @@ sub liabilities {
 
 Retrieve a set of payments received by HMRC in respect of VAT over the
 specified date range. Returns a WebService::HMRC::Response object reference.
-Requires permission for the C<read-vat> service scope.
+Requires permission for the C<read:vat> service scope.
 
 =head3 Parameters:
 
@@ -425,7 +425,7 @@ sub payments {
 
 Retrieve a previously submitted VAT return corresponding to the supplied
 period_key. Returns a WebService::HMRC::Response object reference.
-Requires permission for the C<read-vat> service scope.
+Requires permission for the C<read:vat> service scope.
 
 =head3 Parameters:
 
@@ -487,7 +487,7 @@ sub get_return {
 
 Retrieve a previously submitted VAT return corresponding to the supplied
 period_key. Returns a WebService::HMRC::Response object reference.
-Requires permission for the C<write-vat> service scope.
+Requires permission for the C<write:vat> service scope.
 
 =head3 Parameters:
 
@@ -724,7 +724,7 @@ sub _require_date_range {
 Access to the HMRC Making Tax Digital VAT APIs requires that an application
 be registered with HMRC and enabled for this service. Additionally permission
 must be granted by a registered user for the application to access the
-C<read-vat> or C<write-vat> service scope, as noted for each method.
+C<read:vat> or C<write:vat> service scope, as noted for each method.
 
 Authorisation is provided by means of an C<access token>.
 
