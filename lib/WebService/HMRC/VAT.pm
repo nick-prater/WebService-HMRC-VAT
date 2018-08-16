@@ -196,7 +196,7 @@ sub obligations {
     my ($self, $args) = @_;
 
     $self->_require_date_range($args);
-    
+
     my $endpoint = sprintf(
         '/organisations/vat/%s/obligations',
         $self->vrn,
@@ -314,7 +314,7 @@ sub liabilities {
 
     if($args->{test_mode}) {
         push @headers, ('Gov-Test-Scenario' => $args->{test_mode});
-        carp "TEST MODE enabled - returning dummy test data!";
+        carp 'TEST MODE enabled - returning dummy test data!';
     }
 
     return $self->get_endpoint({
@@ -409,7 +409,7 @@ sub payments {
 
     if($args->{test_mode}) {
         push @headers, ('Gov-Test-Scenario' => $args->{test_mode});
-        carp "TEST MODE enabled - returning dummy test data!";
+        carp 'TEST MODE enabled - returning dummy test data!';
     }
 
     return $self->get_endpoint({
@@ -468,7 +468,7 @@ sub get_return {
     my ($self, $args) = @_;
 
     defined $args->{period_key}
-        or croak "period_key parameter missing or undefined";
+        or croak 'period_key parameter missing or undefined';
 
     my $endpoint = sprintf(
         '/organisations/vat/%s/returns/%s',
@@ -662,7 +662,7 @@ sub submit_return {
     $data && ref $data && ref $data eq 'HASH'
         or croak 'data parameter is missing or not a hashref';
 
-    defined $data->{periodKey} or croak "periodKey data field is undefined";
+    defined $data->{periodKey} or croak 'periodKey data field is undefined';
 
     # Convert finalised element to JSON true/false boolean
     $data->{finalised} = $data->{finalised} ? JSON()->true
