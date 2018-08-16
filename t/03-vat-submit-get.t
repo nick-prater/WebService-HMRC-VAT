@@ -152,11 +152,4 @@ SKIP: {
     ok($r->is_success, 'successful response retrieving VAT return from HMRC');
     delete $data->{finalised};
     is_deeply($r->data, $data, 'Extracted VAT return matches that submitted');
-
-
-use Data::Dumper;
-warn Dumper $r->http;
-warn Dumper $r->data;
-
 }
-
