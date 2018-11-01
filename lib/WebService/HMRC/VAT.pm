@@ -383,7 +383,7 @@ of payments received by HMRC:
         to   => '2018-03-31',
     );
     foreach my $payment( @{$result->data->{payments}} ) {
-        print "-- VAT Payments Recevied by HMRC --\n"
+        print "-- VAT Payments Received by HMRC --\n"
         print "Date Received: $payment->{received}\n";
         print "       Amount: $payment->{amount}\n";
     }
