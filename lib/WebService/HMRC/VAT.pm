@@ -113,7 +113,7 @@ has vrn => (
 
 Inherits from L<WebService::HMRC::Request>.
 
-=head2 obligations({ from => 'YYYY-MM-DD', to => 'YYYY-MM-DD', [status => $status] })
+=head2 obligations({ from => 'YYYY-MM-DD', to => 'YYYY-MM-DD', [status => $status, ] [test_mode => $test_mode] })
 
 Retrieve a set of VAT filing obligations for the specified date range. Returns
 a WebService::HMRC::Response object reference. Requires permission for the
@@ -139,6 +139,49 @@ Optional parameter to filter the obligations returned. May be set to 'O' to
 return only 'open' obligations, or 'F' to return only 'fulfilled' obligations.
 
 Default is to return all obligations, both fulfilled and open.
+
+=item test_mode
+
+Optional parameter used only for testing against the HMRC sandbox api.
+
+This parameter should not be used in production systems - it causes dummy
+test data to be returned.
+
+By default, when testing against the sandbox with no C<test_mode> specified,
+the test api simulates the scenario where the client has quarterly
+obligations and one is fulfilled
+
+Other test scenarios are available by setting the C<test_mode> parameter
+as detailed below:
+
+C<QUARTERLY_NONE_MET> simulates the scenario where the client has quarterly
+obligations and none are fulfilled.
+
+C<QUARTERLY_ONE_MET> simulates the scenario where the client has quarterly
+obligations and one is fulfilled.
+
+C<QUARTERLY_TWO_MET> simulates the scenario where the client has quarterly
+obligations and two are fulfilled.
+
+C<QUARTERLY_THREE_MET> simulates the scenario where the client has quarterly
+obligations and three are fulfilled.
+
+C<QUARTERLY_FOUR_MET> simulates the scenario where the client has quarterly
+obligations and four are fulfilled.
+
+C<MONTHLY_NONE_MET> simulates the scenario where the client has monthly
+obligations and none are fulfilled.
+
+C<MONTHLY_ONE_MET> simulates the scenario where the client has monthly
+obligations and one month is fulfilled.
+
+C<MONTHLY_TWO_MET> simulates the scenario where the client has monthly
+obligations and two months are fulfilled.
+
+C<MONTHLY_THREE_MET> simulates the scenario where the client has monthly
+obligations and three months are fulfilled.
+
+C<NOT_FOUND> simulates the scenario where no data is found.
 
 =back
 
@@ -194,6 +237,7 @@ VAT return obligations:
 sub obligations {
 
     my ($self, $args) = @_;
+    my @headers;
 
     $self->_require_date_range($args);
 
@@ -213,11 +257,16 @@ sub obligations {
         $params->{status} = $args->{status};
     }
 
+    if($args->{test_mode}) {
+        push @headers, ('Gov-Test-Scenario' => $args->{test_mode});
+        carp 'TEST MODE enabled - returning dummy test data!';
+    }
+
     return $self->get_endpoint({
         endpoint => $endpoint,
         auth_type => 'user',
         parameters => $params,
-        #headers => ['Content-Type' => 'application/json'],
+        headers => [@headers],
     });
 }
 
@@ -234,7 +283,8 @@ object reference. Requires permission for the C<read:vat> service scope.
 =item from
 
 Return liabilities from this date, specified as YYYY-MM-DD.
-Required parameter.
+Required parameter. The date must be before today's date, otherwise the api
+will return an error.
 
 =item to
 
@@ -245,10 +295,10 @@ Required parameter.
 
 Optional parameter used only for testing against the HMRC sandbox api.
 
-If set to 'SINGLE_LIABILITY', returns a single valid liability when used
+If set to C<SINGLE_LIABILITY>, returns a single valid liability when used
 with dates from 2017-01-02 and to 2017-02-02.
 
-If set to 'MULTIPLE_LIABILITIES', returns multiple valid liabilities when
+If set to C<MULTIPLE_LIABILITIES>, returns multiple valid liabilities when
 used with dates from 2017-04-05 and to 2017-12-21.
 
 This parameter should not be used in production systems - it causes dummy
@@ -350,10 +400,10 @@ Required parameter.
 
 Optional parameter used only for testing against the HMRC sandbox api.
 
-If set to 'SINGLE_PAYMENT', returns a single valid payment when used with
+If set to C<SINGLE_PAYMENT>, returns a single valid payment when used with
 dates from 2017-01-02 and to 2017-02-02.
 
-If set to 'MULTIPLE_PAYMENTS', returns multiple valid payments when used
+If set to C<MULTIPLE_PAYMENTS>, returns multiple valid payments when used
 with dates from 2017-02-27 and to 2017-12-21.
 
 This parameter should not be used in production systems - it causes dummy
