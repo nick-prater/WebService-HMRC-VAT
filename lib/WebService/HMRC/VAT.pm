@@ -205,7 +205,7 @@ VAT return obligations:
           periodKey => "#004"
           start     => "2018-01-06",
           end       => "2018-04-05",
-          due"      => "2018-05-12",
+          due       => "2018-05-12",
           status    => "O",
         },
       ]
