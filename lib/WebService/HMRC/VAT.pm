@@ -119,7 +119,7 @@ Retrieve a set of VAT filing obligations for the specified date range. Returns
 a WebService::HMRC::Response object reference. Requires permission for the
 C<read:vat> service scope.
 
-=head3 Parameters:
+=head3 Parameters
 
 =over
 
@@ -185,7 +185,7 @@ C<NOT_FOUND> simulates the scenario where no data is found.
 
 =back
 
-=head3 Response Data:
+=head3 Response Data
 
 For full details of the response data, see the HMRC API specification. In summary,
 the data contains a single element `obligations` pointing to an array of
@@ -211,7 +211,7 @@ VAT return obligations:
       ]
     }
 
-=head3 Example usage:
+=head3 Example usage
 
     my $result = $vat->obligations({
         from => '2018-01-01',
@@ -276,7 +276,7 @@ sub obligations {
 Retrieve a set of VAT payment liabilities. Returns a WebService::HMRC::Response
 object reference. Requires permission for the C<read:vat> service scope.
 
-=head3 Parameters:
+=head3 Parameters
 
 =over
 
@@ -306,7 +306,7 @@ test data to be returned.
 
 =back
 
-=head3 Response Data:
+=head3 Response Data
 
 For full details of the response data, see the HMRC API specification. In summary,
 the data contains a single element `liabilities` pointing to an array of
@@ -327,7 +327,7 @@ VAT payment liabilities:
       ]
     }
 
-=head3 Example usage:
+=head3 Example usage
 
     my $result = $vat->liabilities({
         from => '2018-01-01',
@@ -382,7 +382,7 @@ Retrieve a set of payments received by HMRC in respect of VAT over the
 specified date range. Returns a WebService::HMRC::Response object reference.
 Requires permission for the C<read:vat> service scope.
 
-=head3 Parameters:
+=head3 Parameters
 
 =over
 
@@ -411,7 +411,7 @@ test data to be returned.
 
 =back
 
-=head3 Response Data:
+=head3 Response Data
 
 For full details of the response data, see the HMRC API specification. In
 summary, the data contains a single element `payments` pointing to an array
@@ -426,7 +426,7 @@ of payments received by HMRC:
       ]
     }
 
-=head3 Example usage:
+=head3 Example usage
 
     my $result = $vat->payments(
         from => '2018-01-01',
@@ -477,7 +477,7 @@ Retrieve a previously submitted VAT return corresponding to the supplied
 period_key. Returns a WebService::HMRC::Response object reference.
 Requires permission for the C<read:vat> service scope.
 
-=head3 Parameters:
+=head3 Parameters
 
 =over
 
@@ -489,7 +489,7 @@ method call.
 
 =back
 
-=head3 Response Data:
+=head3 Response Data
 
 For full details of the response data, see the HMRC API specification. In
 summary, the data is a hashref comprising the following elements which
@@ -539,7 +539,7 @@ Retrieve a previously submitted VAT return corresponding to the supplied
 period_key. Returns a WebService::HMRC::Response object reference.
 Requires permission for the C<write:vat> service scope.
 
-=head3 Parameters:
+=head3 Parameters
 
 For full details of the required parameters and the rules for calculating
 each value, see the HMRC API specification and VAT documentation. The
@@ -623,7 +623,7 @@ Defaults to false.
 
 =back
 
-=head3 Response Headers:
+=head3 Response Headers
 
 For full details of the response headers, see the HMRC API specification. In
 summary the headers confirm receipt of the submission, comprising:
@@ -644,7 +644,7 @@ Unique ID for this operation.
 
 =back
 
-=head3 Response Data:
+=head3 Response Data
 
 For full details of the response data, see the HMRC API specification. In
 summary, the response data is a hashref with keys:
@@ -673,7 +673,7 @@ Present only is payment is due to HMRC.
 
 =back
 
-=head3 Example:
+=head3 Example
 
     my $result = $vat->submit_return({
         periodKey => "#001",
