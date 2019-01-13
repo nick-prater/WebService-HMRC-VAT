@@ -15,11 +15,11 @@ WebService::HMRC::VAT - Interact with the UK HMRC VAT API
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -857,7 +857,7 @@ L<LedgerSMB|https://ledgersmb.org/> open source accounting software.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2018 Nick Prater, NP Broadcast Limited.
+Copyright 2018-2019 Nick Prater, NP Broadcast Limited.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a
