@@ -27,7 +27,7 @@ our $VERSION = '0.03';
     my $vat = WebService::HMRC::VAT->new({
         vrn => '123456789'
     });
-    $vat->auth->access_token->('MY-ACCESS-TOKEN');
+    $vat->auth->access_token('MY-ACCESS-TOKEN');
 
     # Display outstanding VAT returns
     my $result = $vat->obligations({
